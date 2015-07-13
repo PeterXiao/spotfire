@@ -27,6 +27,8 @@
 
 [Plotly Customization](#plotly)
 
+[Walkthrough - Example - ControlChartHeatMap)(#puttingitalltogether)
+
 <a name="overview"/>
 ### Overview 
 
@@ -171,7 +173,7 @@ Since the plotlyWrapper is a div located on the same page as the Spotfire Web Pl
 Within the Spotfire Web Player, the marked value is stored in a variable called `markedSpotfireValue`. this variable can be accessed within the Plotly visualization as well. For example, `console.log(“Marked value: “ + markedSpotfireValue)` will display the markedValue within the console. 
 
 <a name="puttingitalltogether"\>
-## Putting it All Together: Example 1 - ControlChartHeatmap
+## Walkthrough - Example - ControlChartHeatmap
 
 In this first example we will take a look at a basic mashup of Spotfire and Plotly. This will be done using a control chart - a line chart, essentially - in Spotfire and a heatmap within Plotly. Selecting a point within Spotfire will trigger a new heatmap to load within Plotly. 
 

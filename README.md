@@ -5,6 +5,8 @@
 
 [Compatibility](#compatibility)
 
+[Spotfire Customization](#spotfire)
+
 [Required Scripts](#requiredscripts)
 
 [Constants](#constants)
@@ -14,6 +16,16 @@
 [Properties](#properties)
 
 [Customization Attributes](#customizationattributes)
+
+[Callbacks](#callbacks)
+
+[Open the Analysis](#openanalysis)
+
+[Helper Functions](#helperfunctions)
+
+[Passing/Receiving Parameters](#parameters)
+
+[Plotly Customization](#plotly)
 
 <a name="overview"/>
 ### Overview 
@@ -26,7 +38,9 @@ This documentation and associated examples assume that the Spotfire Web Player h
 ### Compatibility 
 
 This code has been tested using Spotfire 7 and using both Chrome and Firefox. 
-Spotfire - Customizing Visualizations
+
+<a name="spotfire"/>
+##Spotfire - Customizing Visualizations
 
 While this documentation assumes that the Spotfire Web Player has been set up, it is good to first review that the API has been configured to work within Spotfire. 
 
@@ -94,3 +108,57 @@ First, window.onload is called to specify that these handlers should be set up w
 `showAnalysisInfo` 	Toggle whether to show user analysis info about this file; options are `true`/`false`
 `showToolBar` 		Toggle whether to show the Spotfire tool bar; options are `true`/`false`
 
+<a name="callbacks"/>
+### Callbacks
+
+Within PlotlyDemo.html we have three callback function set up: one for when an error occurs, one for when the analysis file has completely opened, and one for a marking (e.g. a selection within the Spotfire visualization) occurs. 
+
+More specifically, these callbacks include:
+
+
+`errorCallback`		When an error occurs, this method specifies what steps to take. In the example we display an alert to the user to show them adescription of the error. 
+
+`openedCallback`		When the analysis has been opened, we want to set some properties. In the example, we set the active page and then set up a listener for markings. This listener is useful for interacting with the Plotly visualization and is described in the following callback. 
+
+`markingCallback`		The markingCallback method sets the marked value (from Properties section) and loads the Plotly visualization. This way we can use both the marked value, and the Plotly visualization loads based on the marking. 
+
+<a name="openanalysis"/>
+### Open the Analysis
+
+After all fields and attributes have been set, we can now open the analysis. The code called here is:
+
+`app.open(c_analysisPath, <div_container>, c_parameters);`
+
+Where `c_analysisPath` is the location of the analysis file in the Library, the `div_container` is the div we want the analysis to load into, and `c_parameters` are the analysis parameters we specified earlier in our code.
+
+<a name="helperfunctions"/>
+### Helper Functions
+
+Helper functions include setting the layout of both the Web Player and Plotly visualization. These include:
+
+`layoutPlotly` 		Set up the layout of the Plotly visualization.
+`layoutWebPlayer` 		Set up the layout of the Web Player visualization. 
+
+Other helper functions can be added but within this example, these are the two main ones we use. 
+
+<a name="parameters"/>
+### Passing/Receiving Parameters
+
+Since the parent container is accessbile to both the Web Player visualiation and the Plotly visualization, all parameters are accessible from each. For example ...
+
+<a name="plotly">
+## Plotly - Customized Visualization
+
+The Plotly.js API should be used as it is standalone and does not rely on Plotly’s servers. All required JavaScript files are included within the package, and visualizations can be hosted directly on the Spotfire Web Player server. The Plotly API allows for visualizations to be quickly setup and is not as complicated as setting up the Spotfire Web Player. The example included within PlotlyHeatmapDemo.html shows that a Plotly visualization can be set up in about 60 lines of code. 
+
+<a name="includedscripts"\>
+### Included Scripts
+
+D3.js scripts are needed to properly use Plotly. Additionally...
+
+<a name="creating"\>
+### Creating the Visualization
+
+Creating a visualization is simple within Plotly. Within the example, data are first loaded into the data variable. The call to render the heatmap is one line of code:
+
+`Plotly.plot(‘plotlyWrapper’,data,layout);`

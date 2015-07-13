@@ -188,3 +188,17 @@ Within the SpotfirePlotlyDemo folder you will find:
 
 i. If the server admin is not available, you can check the Web Player's directory by opening the IIS Manager (under `Administrator Tools`), selecting the site (e.g. `SpotfireWeb`) and then `Explore` from the menu.
 
+![alt text](http://i.imgur.com/nV7B7BT.png)
+
+ii. Once the SpotfirePlotlyDemo folder has been copied into the Web Player directory, a restart of the site (e.g. the Spotfire Web site in the IIS Manager, not the entire server) should be done.
+
+![alt text](http://i.imgur.com/yyfaFzt.png)
+
+3. Open the SpotfireControlChartDemo file with the Spotfire desktop client. Once it has loaded:
+
+  i. Choose File->Save As->Library Item 
+ 
+  ii. A prompt showing a directory within the Spotfire Library appears.
+
+![alt text](http://i.imgur.com/xiqiq0n.png)
+

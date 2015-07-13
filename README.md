@@ -2,8 +2,18 @@
 
 
 [Overview](#overview)
+
 [Compatibility](#compatibility)
+
 [Required Scripts](#requiredscripts)
+
+[Constants](#constants)
+
+[Fields](#fields)
+
+[Properties](#properties)
+
+[Customization Attributes](#customizationattributes)
 
 <a name="overview"/>
 ### Overview 
@@ -38,4 +48,49 @@ Within the code the line to include the API script will look similar to this:
 `<script type=”text/javascript” src=”http://<server>/SpotfireWeb/GetJavaScriptApi.ashx?Version=1.0”></script>`
 
 Where `<server>` is the server location of the Spotfire Web Player.
+
+<a name="constants"/>
+### Constants
+
+The constants within the code are variables that will be used throughout the integration code. The Spotfire server URL, the path in the Spotfire Library to the analysis file and other properties are set here. 
+
+These constants include:
+
+`c_ServerUrl`  		The Spotfire Web Player URL 
+`c_AnalysisPath`  		The path within the Spotfire Library to the Spotfire analysis
+`c_parameters` 		Parameters to set up upon initialization, e.g. setting the filters
+`c_markingColumns` 	Columns within the analysis file which can be marked/passed to Plotly
+`c_tableName`  		The underlying data table for the Spotfire visualization
+`c_markingName`  		The name of the marking scheme
+`c_filteringScheme` 	The name of the filtering scheme associated with the visualization’s page
+`c_startPage` 		The name of the page within the analysis file that should be opened when initialized
+
+Note: Not all of these constants are required. `c_startPage` and `c_filteringScheme` will be set to default values. But `c_ServerURL` and `c_AnalysisPath` are two required constants for setting up the visualization properly.
+
+<a name="fields"/>
+### Fields
+
+Fields include variables needed to invoke the custom Spotfire analysis file, as well as the slider that is used to toggle between a full-size Spotfire Web Player and full-size Plotly visualization view. 
+
+`slider` 		At the top of the PlotlyDemo.html page there is a slider that allows a user to increase the size of either the Spotfire visualization or the Plotly visualization markings 
+`customization`  	Needed to invoke a custom Spotfire Web Player analysis
+`app` 			The actual Web Player app, which is created after the page has loaded completely. This groups in all other settings to create the visualization.
+
+<a name="properties"/>
+### Properties
+
+Properties are related to the Spotfire Web Player. In our examples, we use property information to grab data from the Web Player so we can later use it within the Plotly visualization. 
+
+`Columns` 	A mapping of columns that we can later grab information from. This is useful to pass information in our integration. DOM Event Handlers
+
+Within this section of code we set up each component of the customization. The slider, the layout/size of each div container, and various attributes that we want to set when the analysis file loads. 
+
+First, window.onload is called to specify that these handlers should be set up when the page is loaded. Each DOM element that we want to manipulate and invoke is set within this section. 
+
+<a name="customizationattributes"/>
+### Customization Attributes
+
+`showClose` 			Toggle whether to show the user the close option; options are `true`/`false`
+`showAnalysisInfo` 	Toggle whether to show user analysis info about this file; options are `true`/`false`
+`showToolBar` 		Toggle whether to show the Spotfire tool bar; options are `true`/`false`
 

@@ -27,7 +27,7 @@
 
 [Plotly Customization](#plotly)
 
-[Walkthrough - Example - ControlChartHeatMap)(#puttingitalltogether)
+[Walkthrough - Example - ControlChartHeatMap](#puttingitalltogether)
 
 <a name="overview"/>
 ### Overview 

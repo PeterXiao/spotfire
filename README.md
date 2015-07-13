@@ -25,38 +25,36 @@ This documentation and associated examples assume that the Spotfire Web Player h
 <a name="compatibility"/>
 ### Compatibility 
 
-This code has been tested using Spotfire 7 and using both Chrome and Firefox. 
+This code has been tested using Spotfire 7 using both Chrome and Firefox. Plotly.js was used for the Plotly portion of the integration.
 
 <a name="spotfire"/>
 ##Spotfire - Customizing Visualizations
 
 While this documentation assumes that the Spotfire Web Player has been set up, it is good to first review that the API has been configured to work within Spotfire. 
 
-Within the Web.config file in the Spotfire Web Player directory - the default Web Player directory is at C:\Program Files\TIBCO\Spotfire Web Player\7.0.0\webroot - check to make sure that the JavaScript API is enabled. Without this attribute set to true, you will not have access to Spotfire’s API and not be able to build customized visualizations or be able to pass and receive parameters. 
+Within the Web.config file in the Spotfire Web Player directory - the default Web Player directory is at `C:\Program Files\TIBCO\Spotfire Web Player\7.0.0\webroot` - check to make sure that the JavaScript API is enabled. Without this attribute set to `true`, you will not have access to Spotfire’s API and not be able to build customized visualizations or be able to pass and receive parameters. 
 
-For more information on setting up the Spotfire Web Player to allow customizations and use the Spotfire API, visit …
+Detailed information on how to set up mashups using the Spotfire Web Player is available on the [Spotfire Technology Network](http://stn.spotfire.com/stn/Tutorials/HowToCreateMapMashup.aspx)
 
-There are many examples online of custom Web Player applications. The Spotfire Technology Network contains examples, such as … 
-
-Two Spotfire / Plotly mash-ups have been created to illustrate integration between these visualization tools and this document outlines each. The files needed to follow this documentation reside in the SpotfirePlotlyDemo folder. To start out with, open the ControlChartHeatMap.html file. This is the main driver of the integration between Spotfire and Plotly and the file includes the following code:
+An example walkthrough, as well as code, is available within this repo as well. The files needed to follow this documentation reside in the `SpotfirePlotlyDemo` folder. To begin, open the `ControlChartHeatMap.html` file with an editor. This is the main driver of the integration between Spotfire and Plotly.
 
 <a name="requiredscripts"/>
 ### Required Scripts
 
-At the top of the html code are required scripts within the `<script>` tags, most of which reside in the js folder of the SpotfirePlotlyDemo folder. One important script is the Spotfire API script, which allows access to the Spotfire Web Player’s API so that the visualization can be customized. 
+At the top of the `ControlChartHeatMap.html` file you will find the required scripts within the `<script>` tags. An important script is the Spotfire API script which allows access to the Spotfire Web Player’s API so that the visualization can be customized. 
 
-Within the code the line to include the API script will look similar to this:
+The line to include the API script looks like this:
 
 `<script type=”text/javascript” src=”http://<server>/SpotfireWeb/GetJavaScriptApi.ashx?Version=1.0”></script>`
 
-Where `<server>` is the server location of the Spotfire Web Player.
+where `<server>` is the server location of the Spotfire Web Player.
 
 <a name="constants"/>
 ### Constants
 
-The constants within the code are variables that will be used throughout the integration code. The Spotfire server URL, the path in the Spotfire Library to the analysis file and other properties are set here. 
+The constants within the code are variables that will be used throughout the code. The Spotfire server URL, the path in the Spotfire Library to the analysis file and other properties are set here. 
 
-These constants include:
+The constants include:
 
 `c_ServerUrl`  		The Spotfire Web Player URL 
 `c_AnalysisPath`  		The path within the Spotfire Library to the Spotfire analysis
@@ -67,27 +65,27 @@ These constants include:
 `c_filteringScheme` 	The name of the filtering scheme associated with the visualization’s page
 `c_startPage` 		The name of the page within the analysis file that should be opened when initialized
 
-Note: Not all of these constants are required. `c_startPage` and `c_filteringScheme` will be set to default values. But `c_ServerURL` and `c_AnalysisPath` are two required constants for setting up the visualization properly.
+Note: Not all of these constants are required in your code. For example, `c_startPage` and `c_filteringScheme` will be set to default values. But `c_ServerURL` and `c_AnalysisPath` are two required constants for setting up the visualization properly.
 
 <a name="fields"/>
 ### Fields
 
 Fields include variables needed to invoke the custom Spotfire analysis file, as well as the slider that is used to toggle between a full-size Spotfire Web Player and full-size Plotly visualization view. 
 
-`slider` 		At the top of the PlotlyDemo.html page there is a slider that allows a user to increase the size of either the Spotfire visualization or the Plotly visualization markings 
+`slider` 		At the top of the `PlotlyDemo.html` page there is a slider that allows a user to increase the size of either the Spotfire visualization or the Plotly visualization markings 
 `customization`  	Needed to invoke a custom Spotfire Web Player analysis
 `app` 			The actual Web Player app, which is created after the page has loaded completely. This groups in all other settings to create the visualization.
 
 <a name="properties"/>
 ### Properties
 
-Properties are related to the Spotfire Web Player. In our examples, we use property information to grab data from the Web Player so we can later use it within the Plotly visualization. 
+Properties are specific to the Spotfire Web Player. In our examples, we use property information to grab data from the Web Player so we can later be passed and used within the Plotly visualization. 
 
 `Columns` 	A mapping of columns that we can later grab information from. This is useful to pass information in our integration. DOM Event Handlers
 
 Within this section of code we set up each component of the customization. The slider, the layout/size of each div container, and various attributes that we want to set when the analysis file loads. 
 
-First, window.onload is called to specify that these handlers should be set up when the page is loaded. Each DOM element that we want to manipulate and invoke is set within this section. 
+First, `window.onload` is called to specify that these handlers should be set up when the page is loaded. Each DOM element that we want to manipulate and invoke is set within this section. 
 
 <a name="customizationattributes"/>
 ### Customization Attributes
@@ -101,8 +99,7 @@ First, window.onload is called to specify that these handlers should be set up w
 
 Within PlotlyDemo.html we have three callback function set up: one for when an error occurs, one for when the analysis file has completely opened, and one for a marking (e.g. a selection within the Spotfire visualization) occurs. 
 
-More specifically, these callbacks include:
-
+More specifically, the callbacks within the code include:
 
 `errorCallback`		When an error occurs, this method specifies what steps to take. In the example we display an alert to the user to show them adescription of the error. 
 
@@ -113,31 +110,33 @@ More specifically, these callbacks include:
 <a name="openanalysis"/>
 ### Open the Analysis
 
-After all fields and attributes have been set, we can now open the analysis. The code called here is:
+After all constants, fields and callbacks have been setup, we can now open our analysis. 
+
+This can be done with the following line of code:
 
 `app.open(c_analysisPath, <div_container>, c_parameters);`
 
-Where `c_analysisPath` is the location of the analysis file in the Library, the `div_container` is the div we want the analysis to load into, and `c_parameters` are the analysis parameters we specified earlier in our code.
+Where `c_analysisPath` is the location of the analysis file in the Library - set within the [Constants](#constants) section - the `div_container` is the div we want the analysis to load into, and `c_parameters` are the analysis parameters we specified earlier in our code.
 
 <a name="helperfunctions"/>
 ### Helper Functions
 
-Helper functions include setting the layout of both the Web Player and Plotly visualization. These include:
+Within this example code, helper functions are utilized to set the layout of both the Web Player and Plotly visualization.
+
+These helper functions include:
 
 `layoutPlotly` 		Set up the layout of the Plotly visualization.
 `layoutWebPlayer` 		Set up the layout of the Web Player visualization. 
 
-Other helper functions can be added but within this example, these are the two main ones we use. 
-
 <a name="parameters"/>
-### Passing/Receiving Parameters
+### Passing/Receiving Parameters 
 
-Since the parent container is accessbile to both the Web Player visualiation and the Plotly visualization, all parameters are accessible from each. For example ...
+Since the parent container is accessbile to both the Web Player visualiation and the Plotly visualization, all parameters are accessible from each. 
 
 <a name="plotly">
 ## Plotly - Customized Visualization
 
-The Plotly.js API should be used as it is standalone and does not rely on Plotly’s servers. All required JavaScript files are included within the package, and visualizations can be hosted directly on the Spotfire Web Player server. The Plotly API allows for visualizations to be quickly setup and is not as complicated as setting up the Spotfire Web Player. The example included within PlotlyHeatmapDemo.html shows that a Plotly visualization can be set up in about 60 lines of code. 
+The Plotly.js API code should be used as it is standalone and does not rely on Plotly’s servers. All required JavaScript files are included within the package, and visualizations can be hosted directly on the Spotfire Web Player server. The Plotly API allows for visualizations to be quickly setup and is not as complicated as setting up the Spotfire Web Player. The example included within PlotlyHeatmapDemo.html shows that a Plotly visualization can be set up in about 60 lines of code. 
 
 <a name="includedscripts"\>
 ### Included Scripts
@@ -147,14 +146,16 @@ D3.js scripts are needed to properly use Plotly. Additionally...
 <a name="creating"\>
 ### Creating the Visualization
 
-Creating a visualization is simple within Plotly. Within the example, data are first loaded into the data variable. The call to render the heatmap is one line of code:
+Creating a visualization is simple with Plotly. Within the example, we first load data into the `data` variable. The call to render the heatmap is a single line of code:
 
 `Plotly.plot(‘plotlyWrapper’,data,layout);`
+
+where `plotlyWrapper` is the div container name, `data` is the variable with our data in it and `layout` specifies the layout of the Plotly visualization. 
 
 <a name="parameters_plotly"/>
 ### Passing/Receiving Parameters
 
-Since the plotlyWrapper is a div located on the same page as the Spotfire Web Player visualization, parameters can be quickly retrieved and passed to be used between the two applications. 
+Since the `plotlyWrapper` is a div located on the same page as the Spotfire Web Player visualization, parameters can be quickly retrieved and passed to be used between the two applications. 
 
 Within the Spotfire Web Player, the marked value is stored in a variable called `markedSpotfireValue`. this variable can be accessed within the Plotly visualization as well. For example, `console.log(“Marked value: “ + markedSpotfireValue)` will display the markedValue within the console. 
 
@@ -165,12 +166,12 @@ In this first example we will take a look at a basic mashup of Spotfire and Plot
 
 Within the SpotfirePlotlyDemo folder you will find:
 
-* Spotfire control chart analysis file (SpotfireControlChartDemo.dxp)
-* Plotly heat map visualization (PlotlyHeatmapDemo.html)
-* Custom (Spotfire via JS) code to tie everything together (ControlChartHeatmap.html)
-* JavaScript, CSS and image files for components (js, css, img sub-folders)
+* Spotfire control chart analysis file - `SpotfireControlChartDemo.dxp`
+* Plotly heat map visualization - `PlotlyHeatmapDemo.html`
+* Custom (Spotfire via JS) code to tie everything together - `ControlChartHeatmap.html`
+* JavaScript, CSS and image files for components i.e. `js`, `css`, `img` sub-folders
 
-2. The first step is to upload the package onto the Web Player server, unzip its contents and place the SpotfirePlotlyDemo folder in the Web Player's webroot directory. On a Windows machine, the Spotfire Web Player's webroot directory is, by default, located at `C:\Program Files\TIBCO\Spotfire Web Player\7.0.0\webroot` but you should verify that this is the correct location.
+2. The first step is to upload the package onto the Web Player server, unzip its contents and place the `SpotfirePlotlyDemo` folder in the Web Player's webroot directory. On a Windows machine, the Spotfire Web Player's webroot directory is, by default, located at `C:\Program Files\TIBCO\Spotfire Web Player\7.0.0\webroot` but you should verify that this is the correct location.
 
 i. If the server admin is not available, you can check the Web Player's directory by opening the IIS Manager (under `Administrator Tools`), selecting the site (e.g. `SpotfireWeb`) and then `Explore` from the menu.
 
@@ -182,13 +183,13 @@ ii. Once the SpotfirePlotlyDemo folder has been copied into the Web Player direc
 
 3. Open the SpotfireControlChartDemo file with the Spotfire desktop client. Once it has loaded:
 
-  i. Choose File->Save As->Library Item 
+  i. Choose `File->Save As->Library Item`
  
   ii. A prompt showing a directory within the Spotfire Library appears.
 
   ![alt text](http://i.imgur.com/xiqiq0n.png)
 
-  iii. The file should be saved to Plotly/SpotfireControlChartDemo 
+  iii. The file should be saved to `Plotly/SpotfireControlChartDemo` 
 
   iv. If the Plotly folder does not exist, create it by navigating first to the root folder of the entire Web Player's Library and selecting New Folder…
   
@@ -200,19 +201,19 @@ ii. Once the SpotfirePlotlyDemo folder has been copied into the Web Player direc
   
   vi. Note: If it's not possible to use this path and you must save somewhere else in the Library, that is fine. You will just need to make sure the path is updated within the ControlChartHeatmap.html file. 
 
-The c_analysisPath parameter is currently set to /Plotly/SpotfireControlChartDemo and should be updated if the Spotfire analysis was saved in another location.
+The `c_analysisPath` parameter is currently set to `/Plotly/SpotfireControlChartDemo` and should be updated if the Spotfire analysis was saved in another location.
 
-vi. Note: If it's not possible to use this path and you must save somewhere else in the Library, that is fine. You will just need to make sure the path is updated within the ControlChartHeatmap.html file. 
+vi. Note: If it's not possible to use this path and you must save somewhere else in the Library, that is fine. You will just need to make sure the path is updated within the `ControlChartHeatmap.html` file. 
 
-The c_analysisPath parameter is currently set to /Plotly/SpotfireControlChartDemo and should be updated if the Spotfire analysis was saved in another location.
+The `c_analysisPath` parameter is currently set to `/Plotly/SpotfireControlChartDemo` and should be updated if the Spotfire analysis was saved in another location.
 
 4. Now ensure that you are able to open the file we just saved to the Library, but from a browser instead of using the Spotfire desktop client.
 
-i. To do this, first navigate to the Web Player's address within a browser.  The Web Player URL will be something like 
+i. To do this, first navigate to the Web Player's address within a browser.  The Web Player URL will be similar to:
 
-http://dev-srivastav-a.ncf.wdc.com/SpotfireWeb 
+`http://dev-server-name/SpotfireWeb`
 
-ii. Enter your credentials if prompted and check off the 'remember me' box. 
+ii. Enter your credentials if prompted and check off the 'Remember Me' box. 
 
 iii. When you are logged into the Spotfire Web Player, select Browse Library in the upper-right corner. 
 
@@ -220,18 +221,18 @@ iv. Navigate to the path where the file was saved (which was done in step 3) and
 
 ![alt text](http://i.imgur.com/uqu3UKD.png)
 
-5. Now let's go back into the Web Player server. From within the Web Player directory on the server - where you copied theSpotfirePlotlyDemo folder to in step 2 - open the ControlChartHeatmap.html file. We need to change the hard-coded location of the Web Player server. Find and replace all instances of http://<localhost>/SpotfireWeb with the domain of the Web Player server. There should be three times where this occurs within the file.
+5. Now let's go back into the Web Player server. From within the Web Player directory on the server - where you copied theSpotfirePlotlyDemo folder to in step 2 - open the ControlChartHeatmap.html file. We need to change the hard-coded location of the Web Player server. Find and replace all instances of `http://<localhost>/SpotfireWeb` with the domain of the Web Player server. There should be three times where this occurs within the file.
 
 i. For instance, if the Web Player is accessed through 
-http://dev-srivastav-a.ncf.wdc.com/SpotfireWeb then this is the domain that should replace <localhost> within the html file
+`http://dev-server-name/SpotfireWeb` then `dev-server-name` is the domain that should replace `<localhost>` within the html file
 
 6. Assuming everything is ok, you should now be able to access the mash-up.
 
  i. It will be accessible at
- <Web Player Root>/SpotfirePlotlyDemo/ControlChartHeatmap.html 
+ `<Web Player Root>/SpotfirePlotlyDemo/ControlChartHeatmap.html` 
 
     e.g. 
-http://dev-srivastav-a.ncf.wdc.com/SpotfireWeb/SpotfirePlotlyDemo/ControlChartHeatmap.html
+`http://dev-server-name/SpotfireWeb/SpotfirePlotlyDemo/ControlChartHeatmap.html`
 
 7. If an error occurs at any point, check the debugging console (Ctrl+Shift+I in Chrome on a Windows machine). 
 

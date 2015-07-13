@@ -162,3 +162,27 @@ D3.js scripts are needed to properly use Plotly. Additionally...
 Creating a visualization is simple within Plotly. Within the example, data are first loaded into the data variable. The call to render the heatmap is one line of code:
 
 `Plotly.plot(‘plotlyWrapper’,data,layout);`
+
+<a name="parameters_plotly"/>
+### Passing/Receiving Parameters
+
+Since the plotlyWrapper is a div located on the same page as the Spotfire Web Player visualization, parameters can be quickly retrieved and passed to be used between the two applications. 
+
+Within the Spotfire Web Player, the marked value is stored in a variable called `markedSpotfireValue`. this variable can be accessed within the Plotly visualization as well. For example, `console.log(“Marked value: “ + markedSpotfireValue)` will display the markedValue within the console. 
+
+<a name="puttingitalltogether"\>
+## Putting it All Together: Example 1 - ControlChartHeatmap
+
+In this first example we will take a look at a basic mashup of Spotfire and Plotly. This will be done using a control chart - a line chart, essentially - in Spotfire and a heatmap within Plotly. Selecting a point within Spotfire will trigger a new heatmap to load within Plotly. 
+
+Within the SpotfirePlotlyDemo folder you will find:
+
+* Spotfire control chart analysis file (SpotfireControlChartDemo.dxp)
+* Plotly heat map visualization (PlotlyHeatmapDemo.html)
+* Custom (Spotfire via JS) code to tie everything together (ControlChartHeatmap.html)
+* JavaScript, CSS and image files for components (js, css, img sub-folders)
+
+2. The first step is to upload the package onto the Web Player server, unzip its contents and place the SpotfirePlotlyDemo folder in the Web Player's webroot directory. On a Windows machine, the Spotfire Web Player's webroot directory is, by default, located at `C:\Program Files\TIBCO\Spotfire Web Player\7.0.0\webroot` but you should verify that this is the correct location.
+
+i. If the server admin is not available, you can check the Web Player's directory by opening the IIS Manager (under `Administrator Tools`), selecting the site (e.g. `SpotfireWeb`) and then `Explore` from the menu.
+

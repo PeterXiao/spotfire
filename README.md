@@ -1,33 +1,19 @@
 # Integrating Plotly and Spotfire Visualizations
 
-
-[Overview](#overview)
-
-[Compatibility](#compatibility)
-
-[Spotfire Customization](#spotfire)
-
-[Required Scripts](#requiredscripts)
-
-[Constants](#constants)
-
-[Fields](#fields)
-
-[Properties](#properties)
-
-[Customization Attributes](#customizationattributes)
-
-[Callbacks](#callbacks)
-
-[Open the Analysis](#openanalysis)
-
-[Helper Functions](#helperfunctions)
-
-[Passing/Receiving Parameters](#parameters)
-
-[Plotly Customization](#plotly)
-
-[Walkthrough - Example - ControlChartHeatMap](#puttingitalltogether)
+* [Overview](#overview)
+* [Compatibility](#compatibility)
+* [Spotfire Customization](#spotfire)
+* [Required Scripts](#requiredscripts)
+* [Constants](#constants)
+* [Fields](#fields)
+* [Properties](#properties)
+* [Customization Attributes](#customizationattributes)
+* [Callbacks](#callbacks)
+* [Open the Analysis](#openanalysis)
+* [Helper Functions](#helperfunctions)
+* [Passing/Receiving Parameters](#parameters)
+* [Plotly Customization](#plotly)
+* [Walkthrough - Example - ControlChartHeatMap](#puttingitalltogether)
 
 <a name="overview"/>
 ### Overview 
@@ -200,5 +186,32 @@ ii. Once the SpotfirePlotlyDemo folder has been copied into the Web Player direc
  
   ii. A prompt showing a directory within the Spotfire Library appears.
 
-![alt text](http://i.imgur.com/xiqiq0n.png)
+  ![alt text](http://i.imgur.com/xiqiq0n.png)
 
+  iii. The file should be saved to Plotly/SpotfireControlChartDemo 
+
+  iv. If the Plotly folder does not exist, create it by navigating first to the root folder of the entire Web Player's Library and selecting New Folder…
+  
+  ![alt text](http://i.imgur.com/5tOdPSJ.png)
+  
+  v. A prompt appears. Enter Plotly as the name of the folder in the Name field.
+
+  ![alt text](http://i.imgur.com/GBgBQVG.png)
+  
+  vi. Note: If it's not possible to use this path and you must save somewhere else in the Library, that is fine. You will just need to make sure the path is updated within the ControlChartHeatmap.html file. 
+
+The c_analysisPath parameter is currently set to /Plotly/SpotfireControlChartDemo and should be updated if the Spotfire analysis was saved in another location.
+
+vi. Note: If it's not possible to use this path and you must save somewhere else in the Library, that is fine. You will just need to make sure the path is updated within the ControlChartHeatmap.html file. 
+
+The c_analysisPath parameter is currently set to /Plotly/SpotfireControlChartDemo and should be updated if the Spotfire analysis was saved in another location.
+
+4. Now ensure that you are able to open the file we just saved to the Library, but from a browser instead of using the Spotfire desktop client.
+
+i. To do this, first navigate to the Web Player's address within a browser.  The Web Player URL will be something like 
+
+http://dev-srivastav-a.ncf.wdc.com/SpotfireWeb 
+
+ii. Enter your credentials if prompted and check off the 'remember me' box. 
+
+iii. When you are logged into the Spotfire Web Player, select Browse Library in the upper-right corner. 

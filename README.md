@@ -251,3 +251,42 @@ ii. Hovering over cells within the heatmap will give more information about valu
 ![alt text](http://i.imgur.com/YqdwnOn.png)
 
 iii. You will also notice two arrows at the top of the page. By selecting an arrow, a user can enlarge the page's area of either a Spotfire or Plotly visualization, depending on which one you select. 
+
+![alt text](http://i.imgur.com/gPjxuOg.png)
+
+iv. Additionally, there are options at the top of the Spotfire visualization in the left frame.
+
+![alt text](http://i.imgur.com/gAkHkpy.png)
+
+v. Selecting the Filter icon will toggle whether the filter panel is shown or not. Selecting items within the  
+filter panel will allow users to look at a subset of the data within the visualization.
+
+![alt text](http://i.imgur.com/uPejsel.png)
+
+![alt text](http://i.imgur.com/JHhiJTN.png)
+
+
+vi. Other options include Twitter sharing, exporting and general help. 
+
+vii. By hovering over a blank area on the Plotly visualization, an options toolbar similar to Spotfire's will appear. 
+
+![alt text](http://i.imgur.com/vSdqyHN.png)
+
+## Known Issues
+
+### Cross-domain Scripting
+
+Cross-domain scripting should be taken into consideration when setting up a Web Player/Plotly integration. The examples within this document assume that Plotly visualizations have been set up within a folder in the Web Player directory, or a virtual folder that is accessible within the same URL as the Web Player. 
+
+If the Plotly visualizations are located on a different server within the same network, then the document.domain attribute will need to be set. 
+
+For example, if the Spotfire Web Player is installed and set up on webplayer.company-domain.com and Plotly visualizations exist on plotly.company-domain.com then the document.domain attribute within the code for both visualizations should be set to:
+
+`document.domain = company-domain.com`
+
+If the Plotly visualization files are set up on a completely different server than other methods will need to be used in order to allow cross-domain scripting. Cross-origin Resource Sharing (CORS) or using the postMessage function are two possible solutions in these instances. 
+
+### Troubleshooting
+
+Google Chrome includes a console that is helpful for debugging. Similarly, Firefox has Firebug. These debugging tools are useful when attempting to figure out issues with a custom mashup. Inserting `console.log(...);` with the variable or object inserted between the parentheses throughout your code will help with debugging any issues. 
+

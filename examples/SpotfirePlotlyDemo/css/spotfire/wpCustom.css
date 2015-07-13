@@ -1,0 +1,26 @@
+			body
+			{
+				width: 100%;
+				height: 100%;
+				margin: 0px;
+				padding: 0px;	
+			}
+			
+			.slideContainer
+			{
+				position: absolute;
+				overflow: hidden;
+			}
+			
+			.slidePanel
+			{
+				position: absolute;	
+				float: left;
+				background-color: white;
+			}
+			
+			div, span
+			{
+				font-family: Arial;
+                font-size: 11px;
+			}

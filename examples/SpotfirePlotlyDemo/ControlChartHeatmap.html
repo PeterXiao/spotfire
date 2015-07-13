@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Spotfire Web Player / Plotly - Mashup Demo</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script type="text/javascript" src="http://localhost/SpotfireWeb/GetJavaScriptApi.ashx?Version=1.0"></script>		
+		<link rel="stylesheet" type="text/css" href="css/spotfire/wpCustom.css" /> 
+        <script type="text/javascript" src="js/spotfire/util.js"></script>
+        <script type="text/javascript" src="js/spotfire/Slider.js"></script>
+        <script type="text/javascript" src="js/spotfire/HashTable.js"></script>
+		<script type="text/javascript">
+            // If this file is not run on the Spotfire Web Player server, document.domain should be set
+            // document.domain = document.domain;
+            
+			console.log("Initializing...");
+            // Constants
+            var c_serverUrl = "http://localhost/SpotfireWeb/";
+            var c_analysisPath = "/Plotly/SpotfireControlChartDemo/";
+            var c_parameters = "SetFilter(columnName = \"Show All Data\", values = \"False\");";
+            var c_markingColumns = ["Conductivity","T"];
+            var c_tableName = "DynamicControlChart";
+            var c_markingName = "Marking";
+            var c_filteringSchemeName = "Filtering scheme";
+            var c_startPage = "Semiconductor Wafer Conductivities";
+            var c_plotlyWrapper = "plotlyWrapper";
+            // Fields          
+            var slider = null;
+            var map = null;
+    		//var markings = new HashTable();
+    		var customization = new spotfire.webPlayer.Customization();
+    		var app; // Must be created after the page has loaded.
+            var markedValue;
+			
+            // Properties  
+            var Columns = { T: c_markingColumns[0] };
+
+            // DOM Event Handlers
+            window.onload = function(){		    
+                // Sliding windows.
+                var slider = new Slider("container", "left", "right", "leftButton", "rightButton");
+
+				console.log("Setting layout of Spotfire and Plotly visualizations.");
+                $("#plotlyWrapper").load("http://localhost/SpotfireWeb/SpotfirePlotlyDemo/PlotlyHeatmapDemo.html");
+                layoutPlotly(getWindowInnerWidth()/2);
+                layoutWebPlayer(getWindowInnerWidth()/2);
+				
+                slider.onExpandCollapse = function(e)
+                {
+                    var resizePlotly = e.state != Slider.states.RightCollapsed;
+                    var resizeWP = e.state != Slider.states.LeftCollapsed;
+                    
+                    layoutPlotly(e.rightWidth, resizePlotly);
+                    layoutWebPlayer(e.leftWidth, resizeWP);
+                }
+                              
+		        // Create the Web Player
+                customization.showCustomizableHeader = false;
+                customization.showTopHeader = false;
+                customization.showClose = false;
+                customization.showAnalysisInfo = false;
+                customization.showToolBar = false;
+                customization.showExportFile = false;
+                customization.showExportVisualization = false;
+                customization.showUndoRedo = false;
+                customization.showDodPanel = false;
+                customization.showFilterPanel = false;
+                customization.showPageNavigation = true;
+                customization.showStatusBar = false;
+
+                app = new spotfire.webPlayer.Application(c_serverUrl, customization);
+                
+				console.log('Registering callbacks...');
+                // Register callbacks.
+                app.onError(errorCallback);
+                app.onOpened(openedCallback);
+                console.log('Opening Spotfire analysis file...');
+                // Open the analysis.
+                app.open(c_analysisPath, "wpWrapper", c_parameters);
+                console.log('Spotfire analysis file opened.');
+                window.onresize();
+            }
+            
+            window.onresize = function(){
+                // Recalculate the position of the DIVs when the window is resized.           
+                var plotlyHeight = getWindowInnerHeight() - 10 - 25;
+                document.getElementById("rightContents").style.height = plotlyHeight + "px";
+                				
+                var wpHeight = getWindowInnerHeight() - 25;
+                document.getElementById("leftContents").style.height = wpHeight + "px";
+                document.getElementById("wpWrapper").style.height = wpHeight + "px";
+            }        
+            
+            // Web Player Callbacks
+            function errorCallback(errorCode, description){
+                // If an error with Web Player occurs, display the error message 
+                alert(errorCode + ": " + description);
+            }
+            
+            function openedCallback(analysisDocument){
+                // Runs when the Web Player has finished opening the analysis.            
+                analysisDocument.setActivePage(c_startPage);
+                
+                // Register event listener for marking changes.
+                analysisDocument.marking.onChanged(
+                    c_markingName, c_tableName, c_markingColumns, 10, markingCallback);
+            }
+            
+            function markingCallback(args){
+				console.log("Marking callback...");
+                // When Web Player marking is clicked, load Plotly visualization
+				// Also update the markedValue var, which is accessible from Plotly Heatmap Demo.html 
+				// to work with value. 
+                markedValue = args['T'][0];
+	            console.log("Marked value is:");
+				console.log(markedValue);
+				$("#plotlyWrapper").load("http://localhost/SpotfireWeb/SpotfirePlotlyDemo/PlotlyHeatmapDemo.html");
+                console.log("Plotly Heatmap loaded.");
+            }       
+          
+            function layoutPlotly(width){ 
+                // Fixes the positioning of the DIV containing Plotly visualization
+                var plotlyWidth = width - 10;
+                var plotlyHeight = getWindowInnerHeight() - 10 - 25;
+                
+                document.getElementById("rightContents").style.top = 30 + "px";
+                document.getElementById("rightContents").style.height = plotlyHeight + "px";
+                
+                document.getElementById("rightContents").style.right = 5 + "px";
+                document.getElementById("rightContents").style.width = plotlyWidth + "px";
+                
+            }
+            
+            function layoutWebPlayer(width, resizeWP){
+                if (resizeWP == true){
+                    document.getElementById("wpWrapper").style.width = width + "px";
+                    var wpHeight = getWindowInnerHeight() - 25;
+                    document.getElementById("wpWrapper").style.height = wpHeight + "px";
+                }
+            }
+            
+            Marking = function(T){
+                // Struct to store marking information in.
+                this.T = T;
+            }
+			
+			// Dummy
+			function fixPng() {}
+		</script>
+
+	</head>
+	
+	<body>
+		<div id="container" class="slideContainer">
+			<div id="left" class="slidePanel">
+				<div id="leftButton" style="height: 25px; width: 25px; position: absolute; right: 0px;"></div>
+				<div id="leftContents" style="width: 100%; position: absolute; top: 25px;">
+					<div id="wpWrapper" style="position: absolute; width: 100%; height: 100%"></div>
+				</div>
+			</div>
+			<div id="right" class="slidePanel">
+				<div id="rightButton"  style="height: 25px; width: 25px; position: absolute; left: 0px;"></div>
+				<div id="rightContents" style="width: 100%; position: absolute; top: 25px;">
+					<div id="plotlyWrapper" style="position: absolute; width: 100%; height: 100%"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

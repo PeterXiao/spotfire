@@ -215,3 +215,38 @@ http://dev-srivastav-a.ncf.wdc.com/SpotfireWeb
 ii. Enter your credentials if prompted and check off the 'remember me' box. 
 
 iii. When you are logged into the Spotfire Web Player, select Browse Library in the upper-right corner. 
+
+iv. Navigate to the path where the file was saved (which was done in step 3) and open the file. If you are unable to open the file for any reason, permissions may first need to be set so that you are able to access it.
+
+![alt text](http://i.imgur.com/uqu3UKD.png)
+
+5. Now let's go back into the Web Player server. From within the Web Player directory on the server - where you copied theSpotfirePlotlyDemo folder to in step 2 - open the ControlChartHeatmap.html file. We need to change the hard-coded location of the Web Player server. Find and replace all instances of http://<localhost>/SpotfireWeb with the domain of the Web Player server. There should be three times where this occurs within the file.
+
+i. For instance, if the Web Player is accessed through 
+http://dev-srivastav-a.ncf.wdc.com/SpotfireWeb then this is the domain that should replace <localhost> within the html file
+
+6. Assuming everything is ok, you should now be able to access the mash-up.
+
+ i. It will be accessible at
+ <Web Player Root>/SpotfirePlotlyDemo/ControlChartHeatmap.html 
+
+    e.g. 
+http://dev-srivastav-a.ncf.wdc.com/SpotfireWeb/SpotfirePlotlyDemo/ControlChartHeatmap.html
+
+7. If an error occurs at any point, check the debugging console (Ctrl+Shift+I in Chrome on a Windows machine). 
+
+i. In addition to any errors that the Web Player may give, I have also included console logging within the code that will help with debugging if needed. 
+
+![alt text](http://i.imgur.com/qr6B34T.png)
+
+8. When the mash-up loads successfully, you will see the Web Player analysis file on the left and the Plotly visualization on the right. 
+
+![alt text](http://i.imgur.com/9QIcl1Q.png)
+
+i. Selecting any marking on the Spotfire chart (left) will cause the Plotly visualization (right) to update. 
+
+ii. Hovering over cells within the heatmap will give more information about values. 
+
+![alt text](http://i.imgur.com/YqdwnOn.png)
+
+iii. You will also notice two arrows at the top of the page. By selecting an arrow, a user can enlarge the page's area of either a Spotfire or Plotly visualization, depending on which one you select. 

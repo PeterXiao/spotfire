@@ -14,6 +14,7 @@
 * [Passing/Receiving Parameters](#parameters)
 * [Plotly Customization](#plotly)
 * [Walkthrough - Example - ControlChartHeatMap](#puttingitalltogether)
+* [JSViz Extension - Integrating with Plotly](#jsviz)
 
 <a name="overview"/>
 ### Overview 
@@ -288,5 +289,27 @@ If the Plotly visualization files are set up on a completely different server th
 
 ### Troubleshooting
 
-Google Chrome includes a console that is helpful for debugging. Similarly, Firefox has Firebug. These debugging tools are useful when attempting to figure out issues with a custom mashup. Inserting `console.log(...);` with the variable or object inserted between the parentheses throughout your code will help with debugging any issues. 
+Google Chrome includes a console that is helpful for debugging. Similarly, Firefox has Firebug. These debugging tools are useful when attempting to figure out issues with a custom mashup. Inserting `console.log(...);` with the variable or object inserted between the parentheses throughout your code will help with debugging any issues.
+
+<a name="jsviz" />
+## JSViz Extension - Integration with Plotly  
+
+It is possible to also render Plotly charts with the Spotfire JSViz
+extension. 
+
+### JSViz - Requirements
+
+The JSViz extension should first be installed in order to render Plotly
+charts within Spotfire. Additionally, the following JavaScript files
+should included:
+
+* d3.js
+* jquery.js
+* plotly.js
+
+### JSViz - Setting Up the Code
+
+First, create a new JSViz visualization space by clicking on the 'JS'
+JSViz icon within the top menu bar. 
+
 

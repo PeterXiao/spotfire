@@ -295,7 +295,15 @@ Google Chrome includes a console that is helpful for debugging. Similarly, Firef
 ## JSViz Extension - Integration with Plotly  
 
 It is possible to also render Plotly charts with the Spotfire JSViz
-extension. 
+extension. The JSViz extension is a plugin that allows users to create
+visualizations using JavaScript libraries such as D3, but still allows
+them to integrate with the Spotfire platform. 
+
+Since Plotly uses D3, all visualizations can be rendered within the
+JSViz visualization space and allow for Spotfire interactivity. There
+are some required js files and other code before a Plotly visualization
+can be displayed within Spotfire. This section will walk you through how
+to do so and provides an example as well.   
 
 ### JSViz - Requirements
 
@@ -303,9 +311,16 @@ The JSViz extension should first be installed in order to render Plotly
 charts within Spotfire. Additionally, the following JavaScript files
 should included:
 
-* d3.js
-* jquery.js
-* plotly.js
+* d3.min.js
+* jquery-2.1.4.js
+* plotly.min.js
+* typedarray.js
+* underscore.min.js
+
+Additionally, a js file with code for 'hooks' into Spotfire is also
+required. This section will document what is needed for this file  and
+how to properly display Plotly graphs within the Spotfire desktop client
+and the Spotfire Web Player. 
 
 ### JSViz - Setting Up the Code
 

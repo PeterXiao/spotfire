@@ -294,6 +294,8 @@ Google Chrome includes a console that is helpful for debugging. Similarly, Firef
 <a name="jsviz" />
 ## JSViz Extension - Integration with Plotly  
 
+### Overview
+
 It is possible to also render Plotly charts with the Spotfire JSViz
 extension. The JSViz extension is a plugin that allows users to create
 visualizations using JavaScript libraries such as D3, but still allows
@@ -305,11 +307,48 @@ are some required js files and other code before a Plotly visualization
 can be displayed within Spotfire. This section will walk you through how
 to do so and provides an example as well.   
 
-### JSViz - Requirements
+Within the JSViz extension file, there are a number of examples, tutorials and documentation. This documentation includes information on the steps needed to properly render a visualizations not included within Spotfire and using JS libraries such as D3.js.
+
+#### Desktop Client Implementation
+
+The implementation of the custom extension is different for the Spotfire Desktop Client and the Spotfire Web Player, and both can be implemented within a single js file if needed. 
+
+In the Desktop Client, a Microsoft Web Browser control is used as the container for the JavaScript files containing the display code. The actualy JavaScript files can either be hosted on a Web Server instance or embedded within the DXP file itself.
+
+To set up a visualization within JSVIz, the following steps should take place:
+
+1. The Spotfire Professional client starts up and loads the JS Visualization extension. As the extension is part of the memory space of the Spotfire Professional executable, it has access to the internal components of Spotfire such as the Data Engine, the Scripting Engine etc. 
+2. A visualization that uses the JS Visualization extension is created or a DXP file is loaded containing an existing instance. 
+3. The view for the JS Visualization is created. This is an embedded instance of the Microsoft Web Browser control. 
+4. The Web Browser control loads the HTML or JavaScript page containing the visualization code from the external Web Server. This code contains two special hooks: a. A JavaScript callback function that takes a JSON data string and populates the visualization from the data. b. A handler for the “spotfireready” event that registers the above callback. 
+5. Once the Web Browser control completes loading the HTML or JavaScript page a callback is made that triggers the injection of some JavaScript code into the DOM of the Web Browser Control. This injected code first creates a DOM object called “Spotfire” which is an alias for the JavaScript window.external object. 
+6. The injected code then creates and fires an event called “spotfireready”. This event is captured within the visualization code (4b above) and registers the data callback function (4a above) using the method Spotfire.registerSelectionCallback. 
+7. Now, whenever the data or configuration change, the plugin calls the callback defined in 4a to render the JavaScript visualization. 
+
+#### Web Player Implementation
+
+When deployed within the Web Player, the JavaScript or HTML visualization code is hosted inside an IFrame created by the Web Player framework. Once again, the actual files are hosted on a Web Server instance. 
+
+Unlike other visualizations in the Web Player, which are rendered as image files, the JavaScript drawing code is executed within the users Web Browser. Whenever the framework detects that a change has been made to the underlying data, for instance due to marking or filtering, it refreshes the contents of the IFrame. 
+
+The sequence of events is as follows: 
+
+1. The Web Player starts up and loads the JS Visualization extension. As the extension is part of the memory space of the Spotfire Web Player executable, it has access to the internal components of Spotfire such as the Data Engine, the Scripting Engine etc. 
+2. The user opens a DXP file containing a visualization that uses the JS Visualization extension. 
+3. The Web Player server creates an IFrame on the HTML page that will host the JS Visualization instance. The web player then writes the source location of all the required JavaScript files and writes the body HTML for the visualization page to the user’s browser. 
+4. The IFrame requests its content from the Web Player server which routes the request through to the JS Visualization extension. The extension returns the body HTML for the visualization page to the user’s browser. Within the HTML will be tags referring to the location of the JavaScript and CSS files that make up the visualization. These can either point to external Web Server addresses or back to the JavaScript Visualization extension for embedded content. 
+5. The IFrame reads the JavaScript and CSS files from the specified locations and initializes any JavaScript loaded. 
+6. When the <DIV> tag that will host the JavaScript visualization is written to the document, an HTTP POST Request is made to the Web Player Server to retrieve the data for the visualization in JSON format. The returned data is then used to render the visualization. 
+7. Whenever the user changes a marking or filter that affects the underlying data for the visualization the Web Player Server refreshes the IFrame contents which causes either step 6 to be repeated, or in some cases steps 4 through 6 above to be repeated. 
+
+When the user marks some data points in the visualization or executes a script, these events are sent to the Web Player via a HTTP request which routes them to the JS Visualization Extension 
+
+
+### Required Scripts
 
 The JSViz extension should first be installed in order to render Plotly
-charts within Spotfire. Additionally, the following JavaScript files
-should included:
+charts within Spotfire. In order for a Plotly.js visualization render correctly, 
+the following JavaScript files should be included:
 
 * d3.min.js
 * jquery-2.1.4.js
@@ -317,14 +356,13 @@ should included:
 * typedarray.js
 * underscore.min.js
 
-Additionally, a js file with code for 'hooks' into Spotfire is also
-required. This section will document what is needed for this file  and
-how to properly display Plotly graphs within the Spotfire desktop client
-and the Spotfire Web Player. 
+The last required js file - which renders the visualization itself - includes Spotfire functions and 'hooks.' These functions and hooks are documented within the JSViz documentation itself and the next sections will walk you through one such example.  
 
-### JSViz - Setting Up the Code
 
-First, create a new JSViz visualization space by clicking on the 'JS'
-JSViz icon within the top menu bar. 
+## Required Functions
+
+### renderCore()
+
+
 
 

@@ -327,7 +327,7 @@ to do so and provides an example Plotly rendering within Spotfire which shows th
 
 Within the JSViz extension file, there are a number of examples, tutorials and documentation. This documentation includes information on the steps needed to properly render a visualizations not included within Spotfire and using JS libraries such as D3.js.
 
-#### Desktop Client Implementation
+### Desktop Client Implementation
 
 The implementation of the custom extension is different for the Spotfire Desktop Client and the Spotfire Web Player, and both can be implemented within a single js file if needed. 
 
@@ -343,7 +343,7 @@ To set up a visualization within JSVIz, the following steps should take place:
 6. The injected code then creates and fires an event called “spotfireready”. This event is captured within the visualization code (4b above) and registers the data callback function (4a above) using the method Spotfire.registerSelectionCallback. 
 7. Now, whenever the data or configuration change, the plugin calls the callback defined in 4a to render the JavaScript visualization. 
 
-#### Web Player Implementation
+### Web Player Implementation
 
 When deployed within the Web Player, the JavaScript or HTML visualization code is hosted inside an IFrame created by the Web Player framework. Once again, the actual files are hosted on a Web Server instance. 
 
@@ -378,9 +378,14 @@ The last required js file - which renders the visualization itself - includes Sp
 
 ### Required Functions and divs
 
-### renderCore()
+#### renderCore()
 
-### <div id="js_chart">...</div>
+The renderCore method is the main component to render the visualization. 
+
+#### <div id="js_chart">...</div>
+
+js_chart is the main id that is used to append visualization components to. Within spotfire_plotly.js, and in the renderCore function, sub-divs are first created for reach of the six visualizations to display. These are inline divs and their styles are adjusted accordingly as well. 
+
 
 <a name="jsviz_walkthrough"/>
 ## Walkthrough - Example - spotfire_plotly.js
@@ -388,6 +393,8 @@ The last required js file - which renders the visualization itself - includes Sp
 In this section we will guide you through how to create a Plotly chart which is rendered within Spotfire. The example plot will consist of three columns: heatmaps on the top row, and histograms on the bottom row. The data which drives the example integration is random and not associated with any 'real' dataset. 
 
 ![alt text](http://i.imgur.com/bLPOO0k.png)
+
+
 
 ### spotfire_plotly.js
 
@@ -397,6 +404,10 @@ There are two main types of code/functions/etc within this file:
 
 1. JSViz and Spotfire code, which are explained within the JSViz documentation and 
 2. Plotly code, which are explained both here and, in general, in the Plotly.js documentation
+
+As mentioned above, both renderCore and the js_chart div can be found in this script. DIVs are first created and appeded to js_chart and then the Plotly visualizations are rendered. Functions that are used by Plotly include makeHeatmap and makeHistogram
+
+Other functions within this file are used by the extension to hook into the Spotfire framework. This includes functions for marking, as well as access to the Spotfire data itself. 
 
 <a name="jsviz_sourcefiles" />
 ## Source Files

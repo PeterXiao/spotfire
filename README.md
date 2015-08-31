@@ -362,9 +362,22 @@ the following JavaScript files should be included:
 The last required js file - which renders the visualization itself - includes Spotfire functions and 'hooks.' These functions and hooks are documented within the JSViz documentation itself and the next sections will walk you through one such example.  
 
 
-## Required Functions
+## Required Functions and divs
 
 ### renderCore()
+
+### <div id="js_chart">...</div>
+
+## Example Walkthrough
+
+### spotfire_plotly.js
+
+The last required file - mentioned in the Required Scripts section - is the spotfire_plotly.js file. This file is what renders the Plotly visualization within Spotfire. 
+
+There are two main types of code/functions/etc within this file: JSViz and Spotfire code, which are explained within the JSViz documentation, and Plotly code, which are explained both here and, in general, in the Plotly.js documentation. 
+
+
+
 
 
 

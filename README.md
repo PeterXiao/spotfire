@@ -276,6 +276,10 @@ vii. By hovering over a blank area on the Plotly visualization, an options toolb
 
 ![alt text](http://i.imgur.com/vSdqyHN.png)
 
+## Source Files
+
+The example code is located within this Github repository in the [examples/SpotfirePlotlyDemo](https://github.com/plotly/spotfire/tree/master/examples/SpotfirePlotlyDemo) directory.
+
 ## Known Issues
 
 ### Cross-domain Scripting
@@ -356,11 +360,11 @@ The JSViz extension should first be installed in order to render Plotly
 charts within Spotfire. In order for a Plotly.js visualization render correctly, 
 the following JavaScript files should be included:
 
-* d3.min.js
-* jquery-2.1.4.js
+* [d3.min.js](https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js)
+* [jquery-2.1.4.js](https://code.jquery.com/jquery-2.1.4.js)
 * plotly.min.js
 * typedarray.js
-* underscore.min.js
+* [underscore.min.js](https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js)
 
 The last required js file - which renders the visualization itself - includes Spotfire functions and 'hooks.' These functions and hooks are documented within the JSViz documentation itself and the next sections will walk you through one such example.  
 
@@ -387,6 +391,9 @@ There are two main types of code/functions/etc within this file:
 1. JSViz and Spotfire code, which are explained within the JSViz documentation and 
 2. Plotly code, which are explained both here and, in general, in the Plotly.js documentation
 
+## Source Files
+
+The example code is located within this Github repository in the [examples/PlotlyJSViz](https://github.com/plotly/spotfire/tree/master/examples/PlotlyJSViz) directory. 
 
 
 

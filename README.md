@@ -14,7 +14,6 @@
 * [Passing/Receiving Parameters](#parameters)
 * [Plotly Customization](#plotly)
 * [Walkthrough - Example - ControlChartHeatMap](#puttingitalltogether)
-
 * [JSViz Extension - Integrating with Plotly](#jsviz)
 * [Overview](#overview)
 * [Required Scripts](#requiredscripts)
@@ -297,6 +296,7 @@ Google Chrome includes a console that is helpful for debugging. Similarly, Firef
 <a name="jsviz" />
 ## JSViz Extension - Integration with Plotly  
 
+<a name="overview"/>
 ### Overview
 
 It is possible to also render Plotly charts with the Spotfire JSViz
@@ -346,7 +346,7 @@ The sequence of events is as follows:
 
 When the user marks some data points in the visualization or executes a script, these events are sent to the Web Player via a HTTP request which routes them to the JS Visualization Extension 
 
-
+<a name="requiredscripts"/>
 ### Required Scripts
 
 The JSViz extension should first be installed in order to render Plotly

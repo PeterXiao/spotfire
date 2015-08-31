@@ -14,10 +14,15 @@
 * [Passing/Receiving Parameters](#parameters)
 * [Plotly Customization](#plotly)
 * [Walkthrough - Example - ControlChartHeatMap](#puttingitalltogether)
+* [Known Issues](#knownissues)
+* [Source Files](#sourcefiles)
 * [JSViz Extension - Integrating with Plotly](#jsviz)
-* [Overview](#overview)
-* [Required Scripts](#requiredscripts)
-* [Walkthrough - Example - spotfire_plotly.js](#jsvizwalkthrough)
+* [Overview](#jsviz_overview)
+* [Required Scripts](#jsviz_requiredscripts)
+* [Walkthrough - Example - spotfire_plotly.js](#jsviz_walkthrough)
+* [Known Issues](#jsviz_knownissues)
+* [Source Files](#jsviz_sourcefiles)
+* [Troubleshooting](#jsviz_troubleshooting)
 
 <a name="overview"/>
 ### Overview 
@@ -276,10 +281,12 @@ vii. By hovering over a blank area on the Plotly visualization, an options toolb
 
 ![alt text](http://i.imgur.com/vSdqyHN.png)
 
+<a name="sourcefiles" />
 ## Source Files
 
 The example code is located within this Github repository in the [examples/SpotfirePlotlyDemo](https://github.com/plotly/spotfire/tree/master/examples/SpotfirePlotlyDemo) directory.
 
+<a name="knownissues" />
 ## Known Issues
 
 ### Cross-domain Scripting
@@ -294,14 +301,15 @@ For example, if the Spotfire Web Player is installed and set up on webplayer.com
 
 If the Plotly visualization files are set up on a completely different server than other methods will need to be used in order to allow cross-domain scripting. Cross-origin Resource Sharing (CORS) or using the postMessage function are two possible solutions in these instances. 
 
-### Troubleshooting
+<a name="Troubleshooting" />
+## Troubleshooting
 
 Google Chrome includes a console that is helpful for debugging. Similarly, Firefox has Firebug. These debugging tools are useful when attempting to figure out issues with a custom mashup. Inserting `console.log(...);` with the variable or object inserted between the parentheses throughout your code will help with debugging any issues.
 
 <a name="jsviz" />
 ## JSViz Extension - Integration with Plotly  
 
-<a name="overview"/>
+<a name="jsviz_overview"/>
 ### Overview
 
 It is possible to also render Plotly charts with the Spotfire JSViz
@@ -368,14 +376,13 @@ the following JavaScript files should be included:
 
 The last required js file - which renders the visualization itself - includes Spotfire functions and 'hooks.' These functions and hooks are documented within the JSViz documentation itself and the next sections will walk you through one such example.  
 
-
-## Required Functions and divs
+### Required Functions and divs
 
 ### renderCore()
 
 ### <div id="js_chart">...</div>
 
-<a name="jsvizwalkthrough"/>
+<a name="jsviz_walkthrough"/>
 ## Walkthrough - Example - spotfire_plotly.js
 
 In this section we will guide you through how to create a Plotly chart which is rendered within Spotfire. The example plot will consist of three columns: heatmaps on the top row, and histograms on the bottom row. The data which drives the example integration is random and not associated with any 'real' dataset. 
@@ -391,14 +398,15 @@ There are two main types of code/functions/etc within this file:
 1. JSViz and Spotfire code, which are explained within the JSViz documentation and 
 2. Plotly code, which are explained both here and, in general, in the Plotly.js documentation
 
+<a name="jsviz_sourcefiles" />
 ## Source Files
 
 The example code is located within this Github repository in the [examples/PlotlyJSViz](https://github.com/plotly/spotfire/tree/master/examples/PlotlyJSViz) directory. 
 
+<a name="jsviz_knownissues" />
+## Known Issues
 
+<a name="jsviz_troubleshooting" />
+## Troubleshooting
 
-
-
-
-
-
+...

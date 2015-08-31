@@ -14,7 +14,10 @@
 * [Passing/Receiving Parameters](#parameters)
 * [Plotly Customization](#plotly)
 * [Walkthrough - Example - ControlChartHeatMap](#puttingitalltogether)
+
 * [JSViz Extension - Integrating with Plotly](#jsviz)
+* [Overview](#overview)
+* [Required Scripts](#requiredscripts)
 
 <a name="overview"/>
 ### Overview 

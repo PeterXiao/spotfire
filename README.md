@@ -17,6 +17,7 @@
 * [JSViz Extension - Integrating with Plotly](#jsviz)
 * [Overview](#overview)
 * [Required Scripts](#requiredscripts)
+* [Walkthrough - Example - spotfire_plotly.js](#jsvizwalkthrough)
 
 <a name="overview"/>
 ### Overview 
@@ -308,7 +309,9 @@ Since Plotly uses D3, all visualizations can be rendered within the
 JSViz visualization space and allow for Spotfire interactivity. There
 are some required js files and other code before a Plotly visualization
 can be displayed within Spotfire. This section will walk you through how
-to do so and provides an example as well.   
+to do so and provides an example Plotly rendering within Spotfire which shows the following:
+
+![alt text](http://i.imgur.com/bLPOO0k.png)
 
 Within the JSViz extension file, there are a number of examples, tutorials and documentation. This documentation includes information on the steps needed to properly render a visualizations not included within Spotfire and using JS libraries such as D3.js.
 
@@ -368,7 +371,12 @@ The last required js file - which renders the visualization itself - includes Sp
 
 ### <div id="js_chart">...</div>
 
-## Example Walkthrough
+<a name="jsvizwalkthrough"/>
+## Walkthrough - Example - spotfire_plotly.js
+
+In this section we will guide you through how to create a Plotly chart which is rendered within Spotfire. The example plot will consist of three columns: heatmaps on the top row, and histograms on the bottom row. The data which drives the example integration is random and not associated with any 'real' dataset. 
+
+![alt text](http://i.imgur.com/bLPOO0k.png)
 
 ### spotfire_plotly.js
 

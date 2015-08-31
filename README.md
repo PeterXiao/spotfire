@@ -382,7 +382,7 @@ The last required js file - which renders the visualization itself - includes Sp
 
 The renderCore method is the main component to render the visualization. 
 
-#### <div id="js_chart">...</div>
+#### js_chart div
 
 js_chart is the main id that is used to append visualization components to. Within spotfire_plotly.js, and in the renderCore function, sub-divs are first created for reach of the six visualizations to display. These are inline divs and their styles are adjusted accordingly as well. 
 

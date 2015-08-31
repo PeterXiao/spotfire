@@ -380,9 +380,14 @@ In this section we will guide you through how to create a Plotly chart which is 
 
 ### spotfire_plotly.js
 
-The last required file - mentioned in the Required Scripts section - is the spotfire_plotly.js file. This file is what renders the Plotly visualization within Spotfire. 
+This is the 'last' of the required files - mentioned in the Required Scripts section of this markdown file - is the spotfire_plotly.js file. This js file is the driver that renders the Plotly visualization within Spotfire. 
 
-There are two main types of code/functions/etc within this file: JSViz and Spotfire code, which are explained within the JSViz documentation, and Plotly code, which are explained both here and, in general, in the Plotly.js documentation. 
+There are two main types of code/functions/etc within this file: 
+
+1. JSViz and Spotfire code, which are explained within the JSViz documentation and 
+2. Plotly code, which are explained both here and, in general, in the Plotly.js documentation
+
+
 
 
 
